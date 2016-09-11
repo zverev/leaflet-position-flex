@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>leaflet-position-flex demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet-src.js" charset="utf-8"></script>
+    <script src="src/L.PositionFlex.js" charset="utf-8"></script>
+    <style>
+      html, body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      const map = L.map(document.body, {
+        zoomControl: false,
+        attributionControl: false
+      }).setView([50.0, 10.0], 5)
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png').addTo(map)
+
+      const flexPosition = L.positionFlex({
+        orientation: 'horizontal'
+      }).addTo(map)
+
+      flexPosition.addControl(L.control.zoom({
+        position: 'start'
+      }))
+      flexPosition.addControl(L.control.attribution({
+        position: 'end'
+      }).addAttribution('Vector data &copy; Mapbox'))
+    </script>
+  </body>
+</html>
