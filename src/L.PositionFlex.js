@@ -9,8 +9,16 @@ L.PositionFlex = L.Control.extend({
 
   addControl (ctrl) {
     ctrl._map = this._map
+    const pos = ctrl.options.position
+    const controlCorner = this._controlCorners[pos]
+    if (!this._container) {
+      throw `control is not rendered yet`
+    }
+    if (!controlCorner) {
+      throw `control position '${pos}' is not supported`
+    }
     const ctrlContainer = ctrl.onAdd(this._map)
-    this._container.appendChild(ctrlContainer)
+    controlCorner.appendChild(ctrlContainer)
   },
 
   removeControl (ctrl) {
@@ -24,7 +32,7 @@ L.PositionFlex = L.Control.extend({
     }
 
     if (!this._container) {
-      this._container = this._render()
+      this._render()
     }
     return this._container
   },
@@ -44,7 +52,11 @@ L.PositionFlex = L.Control.extend({
   },
 
   _render () {
-    return L.DomUtil.create('div', 'positionFlex')
+    this._controlCorners = {}
+    this._container = L.DomUtil.create('div', 'positionFlex')
+    this._controlCorners['start'] = L.DomUtil.create('div', 'positionFlex-positionStart', this._container)
+    this._controlCorners['middle'] = L.DomUtil.create('div', 'positionFlex-positionMiddle', this._container)
+    this._controlCorners['end'] = L.DomUtil.create('div', 'positionFlex-positionEnd', this._container)
   }
 })
 
