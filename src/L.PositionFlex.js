@@ -1,4 +1,8 @@
 L.PositionFlex = L.Control.extend({
+  options: {
+    position: 'middle'
+  },
+
   initialize (options) {
     L.setOptions(this, options)
   },
@@ -10,10 +14,15 @@ L.PositionFlex = L.Control.extend({
   },
 
   removeControl (ctrl) {
-    ctrl.remove()
+    ctrl.onRemove()
   },
 
   onAdd (map) {
+    if (!map.getMap) {
+      // adding to leaflet map
+      this._createOwnControlCorner(map)
+    }
+
     if (!this._container) {
       this._container = this._render()
     }
@@ -26,6 +35,12 @@ L.PositionFlex = L.Control.extend({
 
   getMap () {
     return this._map
+  },
+
+  _createOwnControlCorner (lMap) {
+    this._controlCornerEl = L.DomUtil.create('div', 'positionFlex-lMapControlCorner', lMap._controlContainer)
+    L.DomUtil.addClass(this._controlCornerEl, 'leaflet-top leaflet-bottom leaflet-left leaflet-right')
+    lMap._controlCorners[this.options.position] = this._controlCornerEl
   },
 
   _render () {

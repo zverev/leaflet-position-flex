@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>leaflet-position-flex demo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" charset="utf-8">
+    <link rel="stylesheet" href="src/positionFlex.css" charset="utf-8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet-src.js" charset="utf-8"></script>
     <script src="src/L.PositionFlex.js" charset="utf-8"></script>
     <style>
@@ -33,6 +34,25 @@
       flexPosition.addControl(L.control.attribution({
         position: 'end'
       }).addAttribution('Vector data &copy; Mapbox'))
+
+      const flexPosition2 = L.positionFlex({
+        orientation: 'vertical',
+        position: 'middle'
+      })
+
+      flexPosition.addControl(flexPosition2)
+
+      flexPosition2.addControl(L.control.zoom({
+        position: 'start'
+      }))
+
+      flexPosition2.addControl(L.control.zoom({
+        position: 'middle'
+      }))
+
+      flexPosition2.addControl(L.control.zoom({
+        position: 'end'
+      }))
     </script>
   </body>
 </html>
